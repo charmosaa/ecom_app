@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 class ProductViewModel: ObservableObject {
-    @Published var products: [Product] = []
-    @Published var basket: [String: Int] = [:] // productId → count
-    @Published var alertStockMsg: String? = nil
+    @Published var products: [Product] = []     // all the products
+    @Published var basket: [String: Int] = [:]  // stores productId and their count
+    @Published var alertStockMsg: String? = nil // alert message when not enough stock
     
     init() {
         loadProducts()
@@ -35,10 +35,10 @@ class ProductViewModel: ObservableObject {
 
     func addToBasket(product: Product) {
         let currentCount = productCount(product)
-        // checking if we have enough item in stock
-        if currentCount < product.inStock {
+        
+        if currentCount < product.inStock {     // checking if we have enough item in stock
             basket[product.productId] = currentCount + 1
-        } else{
+        } else{                                 // message when not enough
             alertStockMsg =  "Only \(product.inStock) in stock for \(product.description)"
         }
     }
@@ -59,13 +59,15 @@ class ProductViewModel: ObservableObject {
         products.filter { productCount($0) > 0 }
     }
 
+    // checkout message containing comma-separated basket product IDs
     func checkoutMessage() -> String {
         selectedProducts().map { $0.productId }.joined(separator: ", ")
     }
-
+    
+    // total basket value - to show in right corner of the navigation bar
     var totalFormattedPrice: String {
         let total = selectedProducts().reduce(0.0) { sum, product in
-            let priceString = product.price.replacingOccurrences(of: " £", with: "")
+            let priceString = product.price.replacingOccurrences(of: " £", with: "") // assuming all the prices are in GBP
             let price = Double(priceString) ?? 0.0
             let count = productCount(product)
             return sum + (price * Double(count))

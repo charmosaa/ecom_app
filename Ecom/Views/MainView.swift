@@ -26,8 +26,9 @@ struct MainView: View {
                 Label("Checkout", systemImage: "clock")
             }
         }
-        .environmentObject(viewModel) // Share state with child views
+        .environmentObject(viewModel) // shared viewModel
         .accentColor(Color.darkpurple)
+        
     }
 }
 

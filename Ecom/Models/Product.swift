@@ -23,7 +23,6 @@
  }
 */
  
-
 import Foundation
 
 struct ProductList:  Codable {

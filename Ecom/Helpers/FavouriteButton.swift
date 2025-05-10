@@ -12,6 +12,7 @@ struct FavoriteButton: View {
     let toggleAction: () -> Void
 
     var body: some View {
+        // custom button for favourites)
         Button(action: toggleAction) {
             Label("Toggle Favorite", systemImage: isSet ? "heart.fill" : "heart")
                 .labelStyle(.iconOnly)

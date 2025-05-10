@@ -21,10 +21,12 @@ struct BrowseView: View {
 
     var body: some View {
         List {
+            // toggle for favourites products
             Toggle(isOn: $showFavoritesOnly) {
                 Text("Favourites only")
             } .tint(Color.darkpurple)
             
+            // product list
             ForEach(filteredProducts){
                 product in
                 SingleProductView(product: product)

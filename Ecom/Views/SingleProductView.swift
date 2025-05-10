@@ -14,7 +14,7 @@ struct SingleProductView: View {
 
     var body: some View {
         HStack() {
-            // favourite button top-left corrner
+            // favourite button top-left corner
             VStack(alignment: .leading){
                 FavoriteButton(
                     isSet: product.isFavorite,
@@ -44,7 +44,7 @@ struct SingleProductView: View {
                     .font(.headline)
                     .foregroundColor(Color.redPurple)
                 
-                // add / remove buttons and quantity
+                // remove / add buttons and quantity
                 HStack(spacing: 12) {
                     Button(action: {
                         viewModel.removeFromBasket(product: product)
@@ -76,6 +76,7 @@ struct SingleProductView: View {
                             .cornerRadius(6)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    // alert message when not enough stock when trying to add item to the cart
                     .alert(isPresented: $showAlert) {
                         Alert(title: Text("Not Enough Stock"), message: Text(viewModel.alertStockMsg ?? ""), dismissButton: .default(Text("OK")) {
                             viewModel.alertStockMsg = nil
