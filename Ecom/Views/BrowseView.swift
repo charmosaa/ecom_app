@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct BrowseView: View {
-    @StateObject var viewModel = ProductViewModel()
+    @EnvironmentObject var viewModel: ProductViewModel
     @State private var showFavoritesOnly = false
 
     // fliter favourite only
@@ -20,21 +20,24 @@ struct BrowseView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Toggle("Favorites Only", isOn: $showFavoritesOnly)
-                .padding(.horizontal)
-                .tint(Color.darkpurple)
-
-            List(filteredProducts) { product in
+        List {
+            Toggle(isOn: $showFavoritesOnly) {
+                Text("Favourites only")
+            } .tint(Color.darkpurple)
+            
+            ForEach(filteredProducts){
+                product in
                 SingleProductView(product: product)
                     .environmentObject(viewModel)
             }
         }
-        .navigationTitle("Browse")
+        .navigationTitle("Checkout")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Text(viewModel.totalFormattedPrice)
+                    .font(.headline)
+            }
+        }
     }
-}
-
-
-#Preview {
-    BrowseView()
 }

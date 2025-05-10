@@ -10,6 +10,7 @@ import SwiftUI
 struct SingleProductView: View {
     let product: Product
     @EnvironmentObject var viewModel: ProductViewModel
+    @State private var showAlert = false
 
     var body: some View {
         HStack() {
@@ -44,33 +45,44 @@ struct SingleProductView: View {
                     .foregroundColor(Color.redPurple)
                 
                 // add / remove buttons and quantity
-                HStack {
+                HStack(spacing: 12) {
                     Button(action: {
                         viewModel.removeFromBasket(product: product)
                     }) {
                         Text("-")
                             .font(.headline)
-                            .frame(width: 50, height: 30)
+                            .frame(maxWidth: .infinity, minHeight: 30)
                             .background(Color.lightYellow)
                             .foregroundColor(.black)
                             .cornerRadius(6)
                     }
-                    
+                    .buttonStyle(PlainButtonStyle())
+
                     Text("\(viewModel.productCount(product))")
-                        .frame(width: 30)
+                        .frame(maxWidth: .infinity)
                         .font(.body)
-                    
+
                     Button(action: {
                         viewModel.addToBasket(product: product)
+                        if viewModel.alertStockMsg != nil {
+                                showAlert = true
+                        }
                     }) {
                         Text("+")
                             .font(.headline)
-                            .frame(width: 50, height: 30)
+                            .frame(maxWidth: .infinity)
                             .background(Color.standardYellow)
                             .foregroundColor(.black)
                             .cornerRadius(6)
                     }
+                    .buttonStyle(PlainButtonStyle())
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("Not Enough Stock"), message: Text(viewModel.alertStockMsg ?? ""), dismissButton: .default(Text("OK")) {
+                            viewModel.alertStockMsg = nil
+                        })
+                    }
                 }
+
             }.padding(.leading)
         }
         .padding(.vertical)

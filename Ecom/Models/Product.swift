@@ -5,6 +5,25 @@
 //  Created by Martyna Lopianiak on 10/05/2025.
 //
 
+/*
+ JSON PRODUCT STRUCTURE
+ {
+     "productId": "f0e9d8c7-b6a5-4321-fedc-ba9876543210",
+     "description": "Stainless Steel Water Bottle",
+     "price": "22.50 £",
+     "promotions": [
+         {
+             "type": "discount",
+             "value": "5.00 £"
+         }
+     ],
+     "isFavorite": false,
+     "inStock": 120,
+     "image": "bottle.png"
+ }
+*/
+ 
+
 import Foundation
 
 struct ProductList:  Codable {
@@ -16,7 +35,7 @@ struct Product: Identifiable, Codable {
 
     let productId: String
     let description: String
-    let price: String // e.g. "15.99 £"
+    let price: String
     let promotions: [Promotion]
     var isFavorite: Bool
     let inStock: Int
@@ -27,7 +46,7 @@ struct Product: Identifiable, Codable {
 }
 
 struct Promotion: Codable {
-    let type: String // e.g. "discount" or "percentage"
-    let value: String // e.g. "5.00 £" or "10%"
+    let type: String
+    let value: String
 }
 

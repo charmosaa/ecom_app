@@ -27,6 +27,7 @@ struct MainView: View {
             }
         }
         .environmentObject(viewModel) // Share state with child views
+        .accentColor(Color.darkpurple)
     }
 }
 

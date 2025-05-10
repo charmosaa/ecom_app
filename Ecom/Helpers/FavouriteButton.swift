@@ -16,6 +16,6 @@ struct FavoriteButton: View {
             Label("Toggle Favorite", systemImage: isSet ? "heart.fill" : "heart")
                 .labelStyle(.iconOnly)
                 .foregroundStyle(Color.darkpurple)
-        }
+        }.buttonStyle(PlainButtonStyle())
     }
 }

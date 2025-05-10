@@ -11,7 +11,8 @@ import SwiftUI
 class ProductViewModel: ObservableObject {
     @Published var products: [Product] = []
     @Published var basket: [String: Int] = [:] // productId → count
-
+    @Published var alertStockMsg: String? = nil
+    
     init() {
         loadProducts()
     }
@@ -33,20 +34,19 @@ class ProductViewModel: ObservableObject {
     }
 
     func addToBasket(product: Product) {
-        guard let currentCount = basket[product.productId] else {
-            basket[product.productId] = 1
-            return
-        }
+        let currentCount = productCount(product)
+        // checking if we have enough item in stock
         if currentCount < product.inStock {
             basket[product.productId] = currentCount + 1
+        } else{
+            alertStockMsg =  "Only \(product.inStock) in stock for \(product.description)"
         }
     }
 
+
     func removeFromBasket(product: Product) {
-        guard let currentCount = basket[product.productId], currentCount > 0 else { return }
-        if currentCount == 1 {
-            basket.removeValue(forKey: product.productId)
-        } else {
+        let currentCount = productCount(product)
+        if currentCount > 0 {
             basket[product.productId] = currentCount - 1
         }
     }
@@ -63,9 +63,6 @@ class ProductViewModel: ObservableObject {
         selectedProducts().map { $0.productId }.joined(separator: ", ")
     }
 
-    var totalItemsInBasket: Int {
-        basket.values.reduce(0, +)
-    }
     var totalFormattedPrice: String {
         let total = selectedProducts().reduce(0.0) { sum, product in
             let priceString = product.price.replacingOccurrences(of: " £", with: "")

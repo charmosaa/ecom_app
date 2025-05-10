@@ -12,6 +12,7 @@ struct EcomApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .accentColor(Color.darkpurple)
         }
     }
 }
