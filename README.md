@@ -12,6 +12,7 @@ Simple iOS shopping app - swift ui project
 
 ## Project Structure
 
+```
 Ecom/
 ├── Models/ # Data structures (Product, Promotion)
 ├── ViewModels/ # State management and business logic
@@ -20,4 +21,5 @@ Ecom/
 ├── Helpers/ # Customed assets (colors / buttons)
 ├── Assets.xcassets/ # Images used in UI (product images)
 └── EcomApp.swift # Main app entry point
+```
 
