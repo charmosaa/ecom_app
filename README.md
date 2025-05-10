@@ -1,5 +1,6 @@
 # Ecom App
-Simple iOS shopping app - swift ui project 
+Simple iOS shopping app - Swift UI project 
+created by Martyna Lopianiak
 
 ## App Features
 
