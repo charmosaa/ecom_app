@@ -1,4 +1,4 @@
-# ecom_app
+# Ecom App
 Simple iOS shopping app - swift ui project 
 
 ## App Features
@@ -17,7 +17,7 @@ Ecom/
 ├── Models/ # Data structures (Product, Promotion)
 ├── ViewModels/ # State management and business logic
 ├── Views/ # SwiftUI screens and components
-├── Data/ # `items.json`
+├── Data/ # items.json
 ├── Helpers/ # Customed assets (colors / buttons)
 ├── Assets.xcassets/ # Images used in UI (product images)
 └── EcomApp.swift # Main app entry point
