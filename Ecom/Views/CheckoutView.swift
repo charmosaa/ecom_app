@@ -37,6 +37,22 @@ struct CheckoutView: View {
                 .padding()
                 .buttonStyle(PlainButtonStyle()) 
             }
+            // if empty show message
+            else {
+                VStack(spacing: 12) {
+                    Image(systemName: "cart")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                        .foregroundColor(.gray)
+                    Text("Your cart is empty")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+            }
+
         }
         // alert with a message containing comma-separated basket product IDs
         .alert("Product IDs", isPresented: $showAlert) {
